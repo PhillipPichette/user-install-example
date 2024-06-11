@@ -1,4 +1,4 @@
-import 'dotenv/config';
+import 'dotenv/config.js';
 import { fakeGameItems } from './game.js';
 import { InstallGlobalCommands } from './utils.js';
 

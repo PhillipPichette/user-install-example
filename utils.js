@@ -1,6 +1,6 @@
 import 'dotenv/config';
 import { verifyKey } from 'discord-interactions';
-import { getFakeUsername } from './game.js';
+import { getProfileByName, getUsername } from './game.js';
 
 export function VerifyDiscordRequest(clientKey) {
   return function (req, res, buf) {
@@ -17,8 +17,6 @@ export function VerifyDiscordRequest(clientKey) {
 }
 
 export async function DiscordRequest(endpoint, options) {
-
-  console.log("COMMANDS: "+ options)
   // append endpoint to root API URL
   const url = 'https://discord.com/api/v10/' + endpoint;
   // Stringify payloads
@@ -58,13 +56,13 @@ export function capitalize(str) {
   return str.charAt(0).toUpperCase() + str.slice(1);
 }
 
-export async function getServerLeaderboard(guildId) {
-  let members = await getServerMembers(guildId, 3);
-  members = members
-    .map((id, i) => `${i + 1}. <@${id}> (\`${getFakeUsername(i)}\`)`)
-    .join('\n');
-  return `## :trophy: Server Leaderboard\n*This is a very fake leaderboard that just pulls random server members. Pretend it's pulling real game data and it's much more fun* :zany_face:\n\n### This week\n${members}\n\n### All time\n${members}`;
-}
+// export async function getServerLeaderboard(guildId) {
+//   let members = await getServerMembers(guildId, 3);
+//   members = members
+//     .map((id, i) => `${i + 1}. <@${id}> (\`${getUsername(i)}\`)`)
+//     .join('\n');
+//   return `## :trophy: Server Leaderboard\n*This is a very fake leaderboard that just pulls random server members. Pretend it's pulling real game data and it's much more fun* :zany_face:\n\n### This week\n${members}\n\n### All time\n${members}`;
+// }
 
 async function getServerMembers(guildId, limit) {
   const endpoint = `guilds/${guildId}/members?limit=${limit}`;
@@ -78,23 +76,44 @@ async function getServerMembers(guildId, limit) {
   }
 }
 
-export function createPlayerEmbed(profile) {
+export function createPlayerEmbed(user) {
+  const player = getProfileByName(user.global_name)
+  console.log( "PROFILE "+user )
   return {
     type: 'rich',
-    title: `${profile.username}`,
+    title: `${user.global_name}'s Favorites`,
+    color: 0x968b9f,
+    fields: player.favorites,
+    // [
+    //   {
+    //     name: `Favorites`,
+    //     value: profile.favorites,
+    //     inline: true,
+    //   },
+    // ],
+    // url: 'https://discord.com/developers/docs/intro',
+    thumbnail: {
+      // url: 'https://raw.githubusercontent.com/shaydewael/example-app/main/assets/fake-icon.png',
+      url: `https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.png`
+    },
+  };
+}
+
+export function createGeneratedLegend(legend){
+  return {
+    type: 'rich',
+    title: `${legend.name}`,
     color: 0x968b9f,
     fields: [
       {
-        name: `Favorites`,
-        value: 'tmp', //profile.favorites,
-        inline: true,
-      },
+        name: `Weapons`,
+        value: legend.weapons,
+      }
     ],
-    // url: 'https://discord.com/developers/docs/intro',
     thumbnail: {
-      url: 'https://raw.githubusercontent.com/shaydewael/example-app/main/assets/fake-icon.png',
+      url: `https://raw.githubusercontent.com/shaydewael/example-app/main/assets/${legend.name}.png`,
     },
-  };
+  }
 }
 
 export function genRandom(){

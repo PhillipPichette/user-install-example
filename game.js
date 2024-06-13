@@ -1,11 +1,18 @@
-export function getProfile(p) {
-  const position = p
-    ? p
-    : Math.floor(Math.random() * playerProfiles.length);
-  return playerProfiles[position];
+export function getProfileByName(name) {
+  // const position = p
+  //   ? p
+  //   : Math.floor(Math.random() * playerProfiles.length);
+
+  // console.log("USERNAME: "+name)
+  const profile = playerProfiles.find(p => p.username == name)
+  // console.log(JSON.stringify(playerProfiles))
+  // console.log(JSON.stringify(profile, null, 1));
+
+  // return playerProfiles[p];
+  return profile
 }
 
-export function getFakeUsername(p) {
+export function getUsername(p) {
   const position = p
     ? p
     : Math.floor(Math.random() * playerProfiles.length);
@@ -22,9 +29,41 @@ export const playerProfiles = [
     username: 'Frenchiest Fry',
     createdAt: '06/12/2024',
     lastPlayed: '06/12/2024',
-    favorites: ['Brynn', 'Hattori', 'Rayman']
+    favorites: [
+      {
+        name: 'Brynn',
+        value: 'Axe, Spear',
+        inline: false
+      },
+      {
+        name: 'Hattori',
+        value: 'Sword, Spear',
+        inline: false
+      },
+      {
+        name: 'Rayman',
+        value: 'Axe, Gauntlets',
+        inline: false
+      },
+    ]
   },
-
+  {
+    username: 'Winnie',
+    createdAt: '06/13/2024',
+    lastPlayed: '06/13/2024',
+    favorites: [
+      {
+        name: 'Loki',
+        value: 'Scythe, Katars',
+        inline: false
+      },
+      {
+        name: 'Thor',
+        value: 'Orb, Hammer',
+        inline: false
+      },
+    ]
+  },
 ];
 
 export const randomChoice = [
@@ -257,6 +296,10 @@ export const gameRandom = [
     weapons: ['Bow', 'Scythe']
 },
 {
+    name: 'Arcadia',
+    weapons: ['Greatsword', 'Spear']
+},
+{
     name: 'Ezio',
     weapons: ['Sword', 'Orb']
 },
@@ -269,8 +312,16 @@ export const gameRandom = [
     weapons: ['Battle Boots', 'Rocket Lance']
 },
 {
+  name: 'Red Raptor',
+  weapons: ['Battle Boots', 'Orb']
+},
+{
     name: 'Loki',
     weapons: ['Scythe', 'Katars']
+},
+{
+  name: 'Seven',
+  weapons: ['Spear', 'Cannon']
 },
 {
     name: 'Vivi',

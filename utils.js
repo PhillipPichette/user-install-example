@@ -17,6 +17,8 @@ export function VerifyDiscordRequest(clientKey) {
 }
 
 export async function DiscordRequest(endpoint, options) {
+
+  console.log("COMMANDS: "+ options)
   // append endpoint to root API URL
   const url = 'https://discord.com/api/v10/' + endpoint;
   // Stringify payloads
@@ -79,37 +81,22 @@ async function getServerMembers(guildId, limit) {
 export function createPlayerEmbed(profile) {
   return {
     type: 'rich',
-    title: `${profile.username} Profile (lvl ${profile.stats.level})`,
+    title: `${profile.username}`,
     color: 0x968b9f,
     fields: [
       {
-        name: `Account created`,
-        value: profile.createdAt,
-        inline: true,
-      },
-      {
-        name: `Last played`,
-        value: profile.lastPlayed,
-        inline: true,
-      },
-      {
-        name: `Global rank`,
-        value: profile.stats.rank,
-        inline: true,
-      },
-      {
-        name: `Combat stats`,
-        value: `:smiley: ${profile.stats.wins} wins / :pensive: ${profile.stats.losses} losses`,
-      },
-      {
-        name: `Realms explored`,
-        value: profile.stats.realms,
+        name: `Favorites`,
+        value: 'tmp', //profile.favorites,
         inline: true,
       },
     ],
-    url: 'https://discord.com/developers/docs/intro',
+    // url: 'https://discord.com/developers/docs/intro',
     thumbnail: {
       url: 'https://raw.githubusercontent.com/shaydewael/example-app/main/assets/fake-icon.png',
     },
   };
+}
+
+export function genRandom(){
+  return Math.floor(Math.random() * (62 - 1 + 1)) + 1;
 }

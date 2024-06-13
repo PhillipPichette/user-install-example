@@ -1,151 +1,279 @@
-export function getFakeProfile(p) {
+export function getProfile(p) {
   const position = p
     ? p
-    : Math.floor(Math.random() * fakePlayerProfiles.length);
-  return fakePlayerProfiles[position];
+    : Math.floor(Math.random() * playerProfiles.length);
+  return playerProfiles[position];
 }
 
 export function getFakeUsername(p) {
   const position = p
     ? p
-    : Math.floor(Math.random() * fakePlayerProfiles.length);
-  return fakePlayerProfiles[position].username;
+    : Math.floor(Math.random() * playerProfiles.length);
+  return playerProfiles[position].username;
 }
 
-export function getWikiItem(value) {
-  return fakeGameItems.find((el) => el.value === value);
+export function getRandom(int) {
+  return gameRandom[int];
 }
 
-// fake profile data for game
-export const fakePlayerProfiles = [
+// profile data for game
+export const playerProfiles = [
   {
-    username: 'WumpusWhisperer',
-    createdAt: '01/21/2023',
-    lastPlayed: '02/28/2024',
-    stats: {
-      level: '14',
-      wins: '72',
-      losses: '28',
-      realms: '8',
-      rank: '1743',
-    },
+    username: 'Frenchiest Fry',
+    createdAt: '06/12/2024',
+    lastPlayed: '06/12/2024',
+    favorites: ['Brynn', 'Hattori', 'Rayman']
   },
-  {
-    username: 'PuzzledPetal22',
-    createdAt: '06/11/2022',
-    lastPlayed: '02/27/2024',
-    stats: {
-      level: '6',
-      wins: '18',
-      losses: '82',
-      realms: '4',
-      rank: '6239',
-    },
-  },
-  {
-    username: 'ShadowChaserX',
-    createdAt: '09/03/2023',
-    lastPlayed: '03/01/2024',
-    stats: {
-      level: '11',
-      wins: '54',
-      losses: '46',
-      realms: '7',
-      rank: '3921',
-    },
-  },
-  {
-    username: 'RainbowRider99',
-    createdAt: '04/17/2022',
-    lastPlayed: '02/26/2024',
-    stats: {
-      level: '3',
-      wins: '9',
-      losses: '91',
-      realms: '2',
-      rank: '8105',
-    },
-  },
-  {
-    username: 'MysticExplorer23',
-    createdAt: '12/05/2023',
-    lastPlayed: '03/02/2024',
-    stats: {
-      level: '17',
-      wins: '105',
-      losses: '15',
-      realms: '11',
-      rank: '2468',
-    },
-  },
-  {
-    username: 'VelvetVoyager',
-    createdAt: '08/19/2022',
-    lastPlayed: '02/29/2024',
-    stats: {
-      level: '9',
-      wins: '36',
-      losses: '64',
-      realms: '6',
-      rank: '5743',
-    },
-  },
-  {
-    username: 'LuminousLoreLad',
-    createdAt: '10/14/2023',
-    lastPlayed: '03/03/2024',
-    stats: {
-      level: '13',
-      wins: '63',
-      losses: '37',
-      realms: '9',
-      rank: '4327',
-    },
-  },
+
 ];
 
-// fake items with descriptions for our lil game
-export const fakeGameItems = [
+export const randomChoice = [
   {
-    name: 'Map',
-    value: 'item_map',
-    emoji: ':map:',
-    description: 'A detailed map that reveals hidden paths and secret locations'
-  },
+    name: 'All', 
+    value: 'all'
+  }, 
   {
-    name: `Wumpus' Feather`,
-    value: 'item_feather',
-    emoji: ':feather:',
-    description: 'A rare and magical feather, said to bring good luck to those who possess it'
-  },
-  {
-    name: 'Glowing Orb',
-    value: 'item_orb',
-    emoji: ':crystal_ball:',
-    description: 'A mysterious orb that guides players towards their next quest'
-  },
-  {
-    name: 'Soothing Tonic',
-    value: 'item_tonic',
-    emoji: ':teapot:',
-    description: 'A healing tonic that restores health and provides a brief speed boost to the player\'s character'
-  },
-  {
-    name: 'Luminous Crystal',
-    value: 'item_crystal',
-    emoji: ':rock:',
-    description: 'A radiant crystal that illuminates dark areas and wards off shadows'
-  },
-  {
-    name: 'Celestial Key',
-    value: 'item_key',
-    emoji: ':key:',
-    description: 'Unlocks hidden portals to secret realms'
-  },
-  {
-    name: 'Dreamcatcher Amulet',
-    value: 'item_amulet',
-    emoji: ':nazar_amulet:',
-    description: 'Protects from nightmares and negative effects during rest periods'
+    name: 'Favorite',
+    value: 'favorite'
   }
+]
+
+// weapons
+export const gameRandom = [
+  {
+    name: 'Bodvar',
+    weapons: ['Sword', 'Hammer']
+},
+{
+    name: 'Cassidy',
+    weapons: ['Blasters', 'Hammer']
+},
+{
+    name: 'Orion',
+    weapons: ['Rocket Lance', 'Spear']
+},
+{
+    name: 'Lord Vraxx',
+    weapons: ['Blasters', 'Rocket Lance']
+},
+{
+    name: 'Gnash',
+    weapons: ['Hammer', 'Spear']
+},
+{
+    name: 'Queen Nai',
+    weapons: ['Spear', 'Katars']
+},
+{
+    name: 'Hattori',
+    weapons: ['Sword', 'Spear']
+},
+{
+    name: 'Sir Roland',
+    weapons: ['Sword', 'Rocket Lance']
+},
+{
+    name: 'Scarlet',
+    weapons: ['Hammer', 'Rocket Lance']
+},
+{
+    name: 'Thatch',
+    weapons: ['Sword', 'Blasters']
+},
+{
+    name: 'Ada',
+    weapons: ['Blasters', 'Spear']
+},
+{
+    name: 'Sentinel',
+    weapons: ['Hammer', 'Katars']
+},
+{
+    name: 'Lucien',
+    weapons: ['Blasters', 'Katars']
+},
+{
+    name: 'Teros',
+    weapons: ['Axe', 'Hammer']
+},
+{
+    name: 'Brynn',
+    weapons: ['Axe', 'Spear']
+},
+{
+    name: 'Asuri',
+    weapons: ['Sword', 'Katars']
+},
+{
+    name: 'Barraza',
+    weapons: ['Blasters', 'Axe']
+},
+{
+    name: 'Ember',
+    weapons: ['Bow', 'Katars']
+},
+{
+    name: 'Azoth',
+    weapons: ['Bow', 'Axe']
+},
+{
+    name: 'Koji',
+    weapons: ['Bow', 'Sword']
+},
+{
+    name: 'Ulgrim',
+    weapons: ['Axe', 'Rocket Lance']
+},
+{
+    name: 'Diana',
+    weapons: ['Bow', 'Blasters']
+},
+{
+    name: 'Jhala',
+    weapons: ['Sword', 'Axe']
+},
+{
+    name: 'Kor',
+    weapons: ['Gauntlets', 'Hammer']
+},
+{
+    name: 'Wu Shang',
+    weapons: ['Gauntlets', 'Spear']
+},
+{
+    name: 'Val',
+    weapons: ['Gauntlets', 'Sword']
+},
+{
+    name: 'Ragnir',
+    weapons: ['Katars', 'Axe']
+},
+{
+    name: 'Cross',
+    weapons: ['Blasters', 'Gauntlets']
+},
+{
+    name: 'Mirage',
+    weapons: ['Spear', 'Scythe']
+},
+{
+    name: 'Nix',
+    weapons: ['Blasters', 'Scythe']
+},
+{
+    name: 'Mordex',
+    weapons: ['Gauntlets', 'Scythe']
+},
+{
+    name: 'Yumiko',
+    weapons: ['Bow', 'Hammer']
+},
+{
+    name: 'Artemis',
+    weapons: ['Rocket Lance', 'Scythe']
+},
+{
+    name: 'Caspian',
+    weapons: ['Katars', 'Gauntlets']
+},
+{
+    name: 'Sidra',
+    weapons: ['Cannon', 'Sword']
+},
+{
+    name: 'Xull',
+    weapons: ['Axe', 'Cannon']
+},
+{
+    name: 'Kaya',
+    weapons: ['Spear', 'Bow']
+},
+{
+    name: 'Isaiah',
+    weapons: ['Cannon', 'Blasters']
+},
+{
+    name: 'Jiro',
+    weapons: ['Sword', 'Scythe']
+},
+{
+    name: 'Lin Fei',
+    weapons: ['Katars', 'Cannon']
+},
+{
+    name: 'Zariel',
+    weapons: ['Gauntlets', 'Bow']
+},
+{
+    name: 'Rayman',
+    weapons: ['Gauntlets', 'Axe']
+},
+{
+    name: 'Dusk',
+    weapons: ['Spear', 'Orb']
+},
+{
+    name: 'Fait',
+    weapons: ['Scythe', 'Orb']
+},
+{
+    name: 'Thor',
+    weapons: ['Hammer', 'Orb']
+},
+{
+    name: 'Petra',
+    weapons: ['Gauntlets', 'Orb']
+},
+{
+    name: 'Vector',
+    weapons: ['Rocket Lance', 'Bow']
+},
+{
+    name: 'Volkov',
+    weapons: ['Axe', 'Scythe']
+},
+{
+    name: 'Onyx',
+    weapons: ['Gauntlets', 'Cannon']
+},
+{
+    name: 'Jaeyun',
+    weapons: ['Greatsword', 'Sword']
+},
+{
+    name: 'Mako',
+    weapons: ['Greatsword', 'Katars']
+},
+{
+    name: 'Magyar',
+    weapons: ['Greatsword', 'Hammer']
+},
+{
+    name: 'Reno',
+    weapons: ['Blasters', 'Orb']
+},
+{
+    name: 'Munin',
+    weapons: ['Bow', 'Scythe']
+},
+{
+    name: 'Ezio',
+    weapons: ['Sword', 'Orb']
+},
+{
+    name: 'Tezca',
+    weapons: ['Gauntlets', 'Battle Boots']
+},
+{
+    name: 'Thea',
+    weapons: ['Battle Boots', 'Rocket Lance']
+},
+{
+    name: 'Loki',
+    weapons: ['Scythe', 'Katars']
+},
+{
+    name: 'Vivi',
+    weapons: ['Battle Boots', 'Blasters']
+}
 ];

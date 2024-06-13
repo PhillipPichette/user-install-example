@@ -5,8 +5,9 @@ import {
   VerifyDiscordRequest,
   getServerLeaderboard,
   createPlayerEmbed,
+  genRandom,
 } from './utils.js';
-import { getFakeProfile, getWikiItem } from './game.js';
+import { getProfile, getRandom } from './game.js';
 
 // Create an express app
 const app = express();
@@ -29,15 +30,34 @@ app.post('/interactions', async function (req, res) {
     return res.send({ type: InteractionResponseType.PONG });
   }
 
-  // Log request bodies
-  console.log(req.body);
-
   /**
    * Handle slash command requests
    * See https://discord.com/developers/docs/interactions/application-commands#slash-commands
    */
   if (type === InteractionType.APPLICATION_COMMAND) {
     const { name } = data;
+
+    // "Random" command
+    if(name === 'random'){
+      const option = data.options[0];
+      const choice = option.value;
+      var selectedItem
+      if(choice === 'Favorite'){
+        //selectedItem = getFavorite(option.value);
+      }
+      else {
+        selectedItem = getRandom(option.value);
+      }
+
+      // Send a message into the channel where command was triggered from
+      return res.send({
+        type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
+        data: {
+          content: `Legend: **${selectedItem.name}**, Weapons: **${selectedItem.weapons[0]}, ${selectedItem.weapons[1]}**`,
+        },
+      })
+    }
+
 
     // "leaderboard" command
     if (name === 'leaderboard') {
@@ -51,7 +71,7 @@ app.post('/interactions', async function (req, res) {
     }
     // "profile" command
     if (name === 'profile') {
-      const profile = getFakeProfile(0);
+      const profile = getProfile(0);
       const profileEmbed = createPlayerEmbed(profile);
 
       // Use interaction context that the interaction was triggered from
@@ -88,6 +108,7 @@ app.post('/interactions', async function (req, res) {
         data: profilePayloadData,
       });
     }
+    
     // "link" command
     if (name === 'link') {
       // Send a message into the channel where command was triggered from
@@ -116,20 +137,29 @@ app.post('/interactions', async function (req, res) {
     // "wiki" command
     if (name === 'wiki') {
       const option = data.options[0];
-      const selectedItem = getWikiItem(option.value);
+      
+      //get random int
+      const random = genRandom()
+      
+      const selectedItem = getRandom(random);
       // Send a message into the channel where command was triggered from
+
+      console.log(selectedItem)
+      
       return res.send({
         type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
         data: {
-          content: `${selectedItem.emoji} **${selectedItem.name}**: ${selectedItem.description}`,
+          content: `Legend: **${selectedItem.name}**, Weapons: **${selectedItem.weapons[0]}, ${selectedItem.weapons[1]}**`,
         },
       });
     }
+
+
   }
 
   // handle button interaction
   if (type === InteractionType.MESSAGE_COMPONENT) {
-    const profile = getFakeProfile(0);
+    const profile = getProfile(0);
     const profileEmbed = createPlayerEmbed(profile);
     return res.send({
       type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,

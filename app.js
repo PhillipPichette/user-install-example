@@ -12,17 +12,20 @@ import { getProfileByName, getRandom } from './game.js';
 // Create an express app
 const app = express();
 // Get port, or default to 3000
+// @ts-ignore
 const PORT = process.env.PORT || 3000;
 // Parse request body and verifies incoming requests using discord-interactions package
+// @ts-ignore
 app.use(express.json({ verify: VerifyDiscordRequest(process.env.PUBLIC_KEY) }));
 
 /**
  * Interactions endpoint URL where Discord will send HTTP requests
  */
+// @ts-ignore
 app.post('/interactions', async function (req, res) {
   // Interaction type and data
   const { type, data } = req.body;
-  console.log(JSON.stringify(req.body, null, 1));
+  // console.log(JSON.stringify(req.body, null, 1));
   /**
    * Handle verification requests
    */
@@ -111,6 +114,7 @@ app.post('/interactions', async function (req, res) {
   }
 });
 
+// @ts-ignore
 app.listen(PORT, () => {
   console.log('Listening on port', PORT);
 });

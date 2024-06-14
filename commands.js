@@ -33,4 +33,5 @@ const ALL_COMMANDS = [
   PROFILE_COMMAND,
 ];
 
+// @ts-ignore
 InstallGlobalCommands(process.env.APP_ID, ALL_COMMANDS);

@@ -78,7 +78,7 @@ async function getServerMembers(guildId, limit) {
 
 export function createPlayerEmbed(user) {
   const player = getProfileByName(user.global_name)
-  console.log( "PROFILE "+user )
+  // console.log( "PROFILE "+user )
   return {
     type: 'rich',
     title: `${user.global_name}'s Favorites`,
@@ -107,11 +107,12 @@ export function createGeneratedLegend(legend){
     fields: [
       {
         name: `Weapons`,
-        value: legend.weapons,
+        value: `${legend.weapons[0]}, ${legend.weapons[1]}`
       }
     ],
     thumbnail: {
-      url: `https://raw.githubusercontent.com/shaydewael/example-app/main/assets/${legend.name}.png`,
+      // url: `https://raw.githubusercontent.com/shaydewael/example-app/main/assets/fake-icon.png`,
+      url: `https://raw.githubusercontent.com/PhillipPichette/user-install-example/main/assets/legends/${legend.name}.png`,
     },
   }
 }

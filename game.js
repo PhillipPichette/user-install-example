@@ -207,6 +207,7 @@ export const gameRandom = [
 },
 {
     name: 'Lucien',
+    img: 'Lucien',
     weapons: ['Blasters', 'Katars']
 },
 {

@@ -1,17 +1,26 @@
 import 'dotenv/config.js';
-import { gameRandom, getRandom, randomChoice } from './game.js';
+import { gameRandom, getRandom, weaponChoice } from './game.js';
 import { InstallGlobalCommands } from './utils.js';
 
 const RANDOM_COMMAND = {
   name: 'random',
   type: 1,
-  description: 'Renerate random legend',
+  description: 'Get random legend',
+
+  integration_types: [0, 1],
+  contexts: [0, 1, 2],
+};
+
+const RANDOM_WEAP_COMMAND = {
+  name: 'randomweap',
+  type: 1,
+  description: 'Get random legend from chosen weapon',
   options: [
     {
       type: 3,
       name: 'type',
-      description: 'All or favorite',
-      choices: randomChoice,
+      description: 'Weapon',
+      choices: weaponChoice,
       required: true,
     },
   ],
@@ -30,6 +39,7 @@ const PROFILE_COMMAND = {
 
 const ALL_COMMANDS = [
   RANDOM_COMMAND,
+  RANDOM_WEAP_COMMAND,
   PROFILE_COMMAND,
 ];
 

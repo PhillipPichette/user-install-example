@@ -71,14 +71,17 @@ app.post('/interactions', async function (req, res) {
     }
 
     // "random" command
-    if (name === 'random') {
-      const option = data.options[0];
+    if (name === 'randomweap') {
       
+      const option = data.options[0];
+
+
+
       //get random int
       const random = genRandom()
-      const selectedItem = getRandom(random);
+      const selectedItem = getRandom('weapon', option.value);
       // Send a message into the channel where command was triggered from
-      
+      console.log(selectedItem)
       const msgEmbed = createGeneratedLegend(selectedItem)
 
       let profilePayloadData = {
@@ -98,6 +101,21 @@ app.post('/interactions', async function (req, res) {
       // });
     }
 
+    if (name === 'random') {
+      const selectedItem = getRandom('all');
+      // Send a message into the channel where command was triggered from
+      
+      const msgEmbed = createGeneratedLegend(selectedItem)
+
+      let profilePayloadData = {
+        embeds: [msgEmbed],
+      };
+
+      return res.send({
+        type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
+        data: profilePayloadData,
+      });
+    }
 
   }
 

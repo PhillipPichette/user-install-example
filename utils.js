@@ -100,7 +100,8 @@ export function createPlayerEmbed(user) {
 }
 
 export function createGeneratedLegend(legend){
-  return {
+  
+  const val = {
     type: 'rich',
     title: `${legend.name}`,
     color: 0x968b9f,
@@ -112,9 +113,11 @@ export function createGeneratedLegend(legend){
     ],
     thumbnail: {
       // url: `https://raw.githubusercontent.com/shaydewael/example-app/main/assets/fake-icon.png`,
-      url: `https://raw.githubusercontent.com/PhillipPichette/user-install-example/main/assets/legends/${legend.name}.png`,
+      url: `https://raw.githubusercontent.com/PhillipPichette/user-install-example/main/assets/legends/${legend.img}.png`,
     },
   }
+  console.log(val)
+  return val
 }
 
 export function genRandom(){

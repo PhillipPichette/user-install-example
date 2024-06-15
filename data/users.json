@@ -1,0 +1,57 @@
+[
+  {
+    "username": "Winnie",
+    "favorites": [
+      {
+        "name": "Loki",
+        "value": "Scythe, Katars",
+        "inline": false
+      },
+      {
+        "name": "Thor",
+        "value": "Orb, Hammer",
+        "inline": false
+      }
+    ]
+  },
+  {
+    "username": "schquid",
+    "favorites": [
+      {
+        "name": "Jiro",
+        "value": "Sword, Scythe",
+        "inline": false
+      }
+    ]
+  },
+  {
+    "username": "Frenchiest Fry",
+    "favorites": [
+      {
+        "name": "Brynn",
+        "value": "Axe, Spear",
+        "inline": false
+      },
+      {
+        "name": "Hattori",
+        "value": "Sword, Spear",
+        "inline": false
+      },
+      {
+        "name": "Rayman",
+        "value": "Gauntlets, Axe",
+        "inline": false
+      },
+      {
+        "name": "Kaya",
+        "value": "Spear, Bow",
+        "inline": false
+      },
+      {
+        "name": "Jiro",
+        "value": "Sword, Scythe",
+        "inline": false
+      }
+    ]
+  }
+]

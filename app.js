@@ -4,10 +4,11 @@ import { InteractionType, InteractionResponseType } from 'discord-interactions';
 import {
   VerifyDiscordRequest,
   createPlayerEmbed,
-  genRandom,
   createGeneratedLegend,
+  createErrorEmbed,
 } from './utils.js';
-import { getProfileByName, getRandom } from './game.js';
+import { AddFavorite, AddProfile, getProfileByName, getRandom } from './game.js';
+import { ReadFromFile, WritetoFile } from './jsonIO.js';
 
 // Create an express app
 const app = express();
@@ -25,26 +26,26 @@ app.use(express.json({ verify: VerifyDiscordRequest(process.env.PUBLIC_KEY) }));
 app.post('/interactions', async function (req, res) {
   // Interaction type and data
   const { type, data } = req.body;
-  // console.log(JSON.stringify(req.body, null, 1));
   /**
    * Handle verification requests
    */
   if (type === InteractionType.PING) {
     return res.send({ type: InteractionResponseType.PONG });
   }
-
   /**
    * Handle slash command requests
    * See https://discord.com/developers/docs/interactions/application-commands#slash-commands
    */
+
+
   if (type === InteractionType.APPLICATION_COMMAND) {
     
     const { name } = data;
-
-    // "profile" command
-    if (name === 'profile') {
-      // const profile = getProfileByName(req.body.user.global_name);
+    
+    // "favorites" command
+    if (name === 'favorites') {
       
+      console.log('FOO')
       // Use interaction context that the interaction was triggered from
       const interactionContext = req.body.context;
       var user
@@ -75,13 +76,9 @@ app.post('/interactions', async function (req, res) {
       
       const option = data.options[0];
 
-
-
-      //get random int
-      const random = genRandom()
       const selectedItem = getRandom('weapon', option.value);
       // Send a message into the channel where command was triggered from
-      console.log(selectedItem)
+
       const msgEmbed = createGeneratedLegend(selectedItem)
 
       let profilePayloadData = {
@@ -116,6 +113,57 @@ app.post('/interactions', async function (req, res) {
         data: profilePayloadData,
       });
     }
+
+    if (name === 'addfavorite'){
+      const option = data.options[0];
+      const interactionContext = req.body.context;
+      var user
+      if(interactionContext !== 1) {
+        user = req.body.member.user
+      }else{
+        user = req.body.user
+      }
+      console.log(option)
+      const error = AddFavorite(user.global_name, option.value)
+      const profileEmbed = error ? createErrorEmbed(error): createPlayerEmbed(user);
+
+      // Construct `data` for our interaction response. The profile embed will be included regardless of interaction context
+      let profilePayloadData = {
+        embeds: [profileEmbed],
+      };
+
+      // Send response
+      return res.send({
+        type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
+        data: profilePayloadData,
+      });
+    }
+
+    if (name === 'removefavorite'){
+      const option = data.options[0];
+      const interactionContext = req.body.context;
+      var user
+      if(interactionContext !== 1) {
+        user = req.body.member.user
+      }else{
+        user = req.body.user
+      }
+      console.log(option)
+      AddFavorite(user.global_name, option.value)
+      const profileEmbed = createPlayerEmbed(user);
+
+      // Construct `data` for our interaction response. The profile embed will be included regardless of interaction context
+      let profilePayloadData = {
+        embeds: [profileEmbed],
+      };
+
+      // Send response
+      return res.send({
+        type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
+        data: profilePayloadData,
+      });
+    }
+
 
   }
 

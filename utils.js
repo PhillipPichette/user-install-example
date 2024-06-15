@@ -6,7 +6,6 @@ export function VerifyDiscordRequest(clientKey) {
   return function (req, res, buf) {
     const signature = req.get('X-Signature-Ed25519');
     const timestamp = req.get('X-Signature-Timestamp');
-    console.log(signature, timestamp, clientKey);
 
     const isValidRequest = verifyKey(buf, signature, timestamp, clientKey);
     if (!isValidRequest) {
@@ -33,7 +32,6 @@ export async function DiscordRequest(endpoint, options) {
   // throw API errors
   if (!res.ok) {
     const data = await res.json();
-    console.log(res.status);
     throw new Error(JSON.stringify(data));
   }
   // return original response
@@ -43,7 +41,6 @@ export async function DiscordRequest(endpoint, options) {
 export async function InstallGlobalCommands(appId, commands) {
   // API endpoint to overwrite global commands
   const endpoint = `applications/${appId}/commands`;
-
   try {
     // This is calling the bulk overwrite endpoint: https://discord.com/developers/docs/interactions/application-commands#bulk-overwrite-global-application-commands
     await DiscordRequest(endpoint, { method: 'PUT', body: commands });
@@ -53,16 +50,9 @@ export async function InstallGlobalCommands(appId, commands) {
 }
 
 export function capitalize(str) {
+  str = str.toLowerCase()
   return str.charAt(0).toUpperCase() + str.slice(1);
 }
-
-// export async function getServerLeaderboard(guildId) {
-//   let members = await getServerMembers(guildId, 3);
-//   members = members
-//     .map((id, i) => `${i + 1}. <@${id}> (\`${getUsername(i)}\`)`)
-//     .join('\n');
-//   return `## :trophy: Server Leaderboard\n*This is a very fake leaderboard that just pulls random server members. Pretend it's pulling real game data and it's much more fun* :zany_face:\n\n### This week\n${members}\n\n### All time\n${members}`;
-// }
 
 async function getServerMembers(guildId, limit) {
   const endpoint = `guilds/${guildId}/members?limit=${limit}`;
@@ -78,7 +68,6 @@ async function getServerMembers(guildId, limit) {
 
 export function createPlayerEmbed(user) {
   const player = getProfileByName(user.global_name)
-  // console.log( "PROFILE "+user )
   return {
     type: 'rich',
     title: `${user.global_name}'s Favorites`,
@@ -112,14 +101,27 @@ export function createGeneratedLegend(legend){
       }
     ],
     thumbnail: {
-      // url: `https://raw.githubusercontent.com/shaydewael/example-app/main/assets/fake-icon.png`,
       url: `https://raw.githubusercontent.com/PhillipPichette/user-install-example/main/assets/legends/${legend.img}.png`,
     },
   }
-  console.log(val)
   return val
 }
 
-export function genRandom(){
-  return Math.floor(Math.random() * (62 - 1 + 1)) + 1;
+export function createErrorEmbed(error){
+  
+  const val = {
+    type: 'rich',
+    title: `${error.title}`,
+    color: 0x968b9f,
+    fields: [
+      {
+        name: `Message`,
+        value: error.message
+      }
+    ],
+    thumbnail: {
+      url: `https://raw.githubusercontent.com/PhillipPichette/user-install-example/main/assets/error.png`,
+    },
+  }
+  return val
 }

@@ -1,15 +1,59 @@
+import { ReadFromFile, WritetoFile } from "./jsonIO.js";
+import { capitalize } from "./utils.js";
+
 export function getProfileByName(name) {
-  // const position = p
-  //   ? p
-  //   : Math.floor(Math.random() * playerProfiles.length);
+    const users = ReadFromFile('data/users.json')
+    // get existing user
+    var existing = users.find(u => u.username == name)
+    if(!existing){
+        existing = AddProfile(name)
+    }
 
-  // console.log("USERNAME: "+name)
-  const profile = playerProfiles.find(p => p.username == name)
-  // console.log(JSON.stringify(playerProfiles))
-  // console.log(JSON.stringify(profile, null, 1));
+    // const profile = playerProfiles.find(p => p.username == name)
+    return existing
+}
 
-  // return playerProfiles[p];
-  return profile
+export function AddProfile(user, favorite){
+    const users = ReadFromFile('data/users.json')
+    const newU = {username: user, favorites: favorite ? [favorite] : []}
+    users.push(newU)
+    WritetoFile('data/users.json', users)
+    return newU
+}
+
+export function AddFavorite(user, favorite){
+    console.log(favorite)
+    favorite = capitalize(favorite)
+    console.log(favorite)
+    // get all users
+    const users = ReadFromFile('data/users.json')
+    // get all legends
+    const legends = ReadFromFile('data/legends.json')
+    // get matching legend
+
+    const legend = legends.find(l => l.name == favorite)
+    if(!legend){
+        return { title: 'Invalid legend', message: `The legend '${favorite}' does not exist` }
+    }
+    // console.log(legend)
+    // console.log(favorite)
+    // format favorite for user json
+    const newFav = { name: legend.name, value: `${legend.weapons[0]}, ${legend.weapons[1]}`, inline: false}
+    // get existing user
+    const existing = users.find(u => u.username == user)
+    
+    if(!existing){
+        AddProfile(user, newFav)
+    } else {
+        if(!existing.favorites.find(l => l.name == newFav.name)){
+            existing.favorites.push(newFav)
+            WritetoFile('data/users.json', users)
+        } else {
+            console.log("legend already favorited")
+        }
+        
+    }
+
 }
 
 export function getUsername(p) {
@@ -43,8 +87,6 @@ export function getLegendsFromWeapon(weap){
 export const playerProfiles = [
   {
     username: 'Frenchiest Fry',
-    createdAt: '06/12/2024',
-    lastPlayed: '06/12/2024',
     favorites: [
       {
         name: 'Brynn',
@@ -65,8 +107,6 @@ export const playerProfiles = [
   },
   {
     username: 'Winnie',
-    createdAt: '06/13/2024',
-    lastPlayed: '06/13/2024',
     favorites: [
       {
         name: 'Loki',
@@ -76,6 +116,21 @@ export const playerProfiles = [
       {
         name: 'Thor',
         value: 'Orb, Hammer',
+        inline: false
+      },
+    ]
+  },
+  {
+    username: 'schquid',
+    favorites: [
+      {
+        name: 'Mordex',
+        value: 'Scythe, Gauntlets',
+        inline: false
+      },
+      {
+        name: 'Jiro',
+        value: 'Sword, Scythe',
         inline: false
       },
     ]
@@ -140,8 +195,6 @@ export const weaponChoice = [
       value: 'Sword'
     }
 ]
-
-
 
 // legends
 export const gameRandom = [

@@ -29,18 +29,36 @@ const RANDOM_WEAP_COMMAND = {
 };
 
 // Profile command
-const PROFILE_COMMAND = {
-  name: 'profile',
+const FAVORITES_COMMAND = {
+  name: 'favorites',
   type: 1,
   description: 'See your favorited legends',
-  integration_types: [1],
+
+  integration_types: [0, 1],
   contexts: [0, 1, 2],
 };
+
+const ADD_FAV_COMMAND = {
+  name: 'addfavorite',
+  type: 1,
+  description: 'Add a legend to your favorites',
+  options: [
+    {
+      type: 3,
+      name: 'name',
+      description: 'Legend name',
+      required: true,
+    },
+  ],
+  integration_types: [0, 1],
+  contexts: [0, 1, 2]
+}
 
 const ALL_COMMANDS = [
   RANDOM_COMMAND,
   RANDOM_WEAP_COMMAND,
-  PROFILE_COMMAND,
+  FAVORITES_COMMAND,
+  ADD_FAV_COMMAND,
 ];
 
 // @ts-ignore

@@ -7,7 +7,7 @@ import {
   createGeneratedLegend,
   createErrorEmbed,
 } from './utils.js';
-import { AddFavorite, AddProfile, getProfileByName, getRandom } from './game.js';
+import { AddFavorite, AddProfile, RemoveFavorite, getProfileByName, getRandom } from './game.js';
 import { ReadFromFile, WritetoFile } from './jsonIO.js';
 
 // Create an express app
@@ -44,8 +44,6 @@ app.post('/interactions', async function (req, res) {
     
     // "favorites" command
     if (name === 'favorites') {
-      
-      console.log('FOO')
       // Use interaction context that the interaction was triggered from
       const interactionContext = req.body.context;
       var user
@@ -54,7 +52,9 @@ app.post('/interactions', async function (req, res) {
       }else{
         user = req.body.user
       }
-
+      if(!getProfileByName(user.global_name)){
+        AddProfile(user.global_name)
+      }
       const profileEmbed = createPlayerEmbed(user);
 
 
@@ -123,7 +123,6 @@ app.post('/interactions', async function (req, res) {
       }else{
         user = req.body.user
       }
-      console.log(option)
       const error = AddFavorite(user.global_name, option.value)
       const profileEmbed = error ? createErrorEmbed(error): createPlayerEmbed(user);
 
@@ -148,9 +147,8 @@ app.post('/interactions', async function (req, res) {
       }else{
         user = req.body.user
       }
-      console.log(option)
-      AddFavorite(user.global_name, option.value)
-      const profileEmbed = createPlayerEmbed(user);
+      const error = RemoveFavorite(user.global_name, option.value)
+      const profileEmbed = error ? createErrorEmbed(error): createPlayerEmbed(user);
 
       // Construct `data` for our interaction response. The profile embed will be included regardless of interaction context
       let profilePayloadData = {
@@ -163,7 +161,7 @@ app.post('/interactions', async function (req, res) {
         data: profilePayloadData,
       });
     }
-
+  
 
   }
 
@@ -179,6 +177,7 @@ app.post('/interactions', async function (req, res) {
     });
   }
 });
+
 
 // @ts-ignore
 app.listen(PORT, () => {

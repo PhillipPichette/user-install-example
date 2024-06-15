@@ -22,9 +22,9 @@ export function AddProfile(user, favorite){
 }
 
 export function AddFavorite(user, favorite){
-    console.log(favorite)
+
     favorite = capitalize(favorite)
-    console.log(favorite)
+
     // get all users
     const users = ReadFromFile('data/users.json')
     // get all legends
@@ -51,6 +51,37 @@ export function AddFavorite(user, favorite){
         } else {
             console.log("legend already favorited")
         }
+    }
+}
+
+export function RemoveFavorite(user, favorite){
+
+    favorite = capitalize(favorite)
+
+    // get all users
+    const users = ReadFromFile('data/users.json')
+    // get all legends
+    const legends = ReadFromFile('data/legends.json')
+    // get matching legend
+
+    const legend = legends.find(l => l.name == favorite)
+    if(!legend){
+        return { title: 'Invalid legend', message: `The legend '${favorite}' does not exist` }
+    }
+    // format favorite for user json
+    const newFav = { name: legend.name, value: `${legend.weapons[0]}, ${legend.weapons[1]}`, inline: false}
+    // get existing user
+    const existing = users.find(u => u.username == user)
+    
+    if(!existing){
+        AddProfile(user, newFav)
+    } else {
+        if(existing.favorites.find(l => l.name == newFav.name)){
+            existing.favorites = existing.favorites.filter(l => l.name != favorite)
+            WritetoFile('data/users.json', users)
+        } else {
+            console.log("legend not favorited")
+        }
         
     }
 
@@ -72,7 +103,9 @@ export function getRandom(type, weapon = null) {
         legends = getLegendsFromWeapon(weapon)
     }
 
+    // @ts-ignore
     var int = Math.floor(Math.random() * (legends.length - 1));
+    // @ts-ignore
     return legends[int];
 }
 

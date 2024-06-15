@@ -51,7 +51,16 @@ export async function InstallGlobalCommands(appId, commands) {
 
 export function capitalize(str) {
   str = str.toLowerCase()
-  return str.charAt(0).toUpperCase() + str.slice(1);
+
+  var words = str.split(' ')
+  words.forEach((word, idx) => {
+    if (word.length > 0) {
+      // Capitalize the first letter and add the rest of the word
+      words[idx] = word[0].toUpperCase() + word.slice(1);
+    }
+  })
+  return words.join(' ')
+  // return str.charAt(0).toUpperCase() + str.slice(1);
 }
 
 async function getServerMembers(guildId, limit) {
@@ -73,14 +82,6 @@ export function createPlayerEmbed(user) {
     title: `${user.global_name}'s Favorites`,
     color: 0x968b9f,
     fields: player.favorites,
-    // [
-    //   {
-    //     name: `Favorites`,
-    //     value: profile.favorites,
-    //     inline: true,
-    //   },
-    // ],
-    // url: 'https://discord.com/developers/docs/intro',
     thumbnail: {
       // url: 'https://raw.githubusercontent.com/shaydewael/example-app/main/assets/fake-icon.png',
       url: `https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.png`

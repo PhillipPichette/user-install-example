@@ -43,13 +43,28 @@
         "inline": false
       },
       {
-        "name": "Kaya",
-        "value": "Spear, Bow",
+        "name": "Red Raptor",
+        "value": "Battle Boots, Orb",
         "inline": false
       },
       {
-        "name": "Jiro",
-        "value": "Sword, Scythe",
+        "name": "Kaya",
+        "value": "Spear, Bow",
+        "inline": false
+      }
+    ]
+  },
+  {
+    "username": "Time Captain",
+    "favorites": [
+      {
+        "name": "Ezio",
+        "value": "Sword, Orb",
+        "inline": false
+      },
+      {
+        "name": "Red Raptor",
+        "value": "Battle Boots, Orb",
         "inline": false
       }
     ]

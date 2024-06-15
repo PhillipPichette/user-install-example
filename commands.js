@@ -54,11 +54,28 @@ const ADD_FAV_COMMAND = {
   contexts: [0, 1, 2]
 }
 
+const RM_FAV_COMMAND = {
+  name: 'removefavorite',
+  type: 1,
+  description: 'Remove a legend from your favorites',
+  options: [
+    {
+      type: 3,
+      name: 'name',
+      description: 'Legend name',
+      required: true,
+    },
+  ],
+  integration_types: [0, 1],
+  contexts: [0, 1, 2]
+}
+
 const ALL_COMMANDS = [
   RANDOM_COMMAND,
   RANDOM_WEAP_COMMAND,
   FAVORITES_COMMAND,
   ADD_FAV_COMMAND,
+  RM_FAV_COMMAND,
 ];
 
 // @ts-ignore

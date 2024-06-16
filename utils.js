@@ -157,6 +157,10 @@ export function createHelpEmbed(){
         name: '**/randomweap [weapon]**',
         value: `Randomly generate a legend with the specified weapon`
       },
+      {
+        name: '\n**feedback**',
+        value: `if you have any questions or feedback about the bot send me a dm! \n<@245032124447588362>`
+      }
     ]
   }
 }

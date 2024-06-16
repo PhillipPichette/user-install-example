@@ -1,6 +1,15 @@
 import 'dotenv/config.js';
-import { gameRandom, getRandom, weaponChoice } from './game.js';
+import {weaponChoice } from './game.js';
 import { InstallGlobalCommands } from './utils.js';
+
+const HELP_COMMAND = {
+  name: 'help',
+  type: 1,
+  description: 'Get a list of commands',
+
+  integration_types: [0, 1],
+  contexts: [0, 1, 2],
+}
 
 const RANDOM_COMMAND = {
   name: 'random',
@@ -27,7 +36,6 @@ const RANDOM_WEAP_COMMAND = {
   integration_types: [0, 1],
   contexts: [0, 1, 2],
 };
-
 // Profile command
 const FAVORITES_COMMAND = {
   name: 'favorites',
@@ -70,12 +78,24 @@ const RM_FAV_COMMAND = {
   contexts: [0, 1, 2]
 }
 
+const RANDOM_FAV_COMMAND = {
+  name: 'randomfav',
+  type: 1,
+  description: 'Get random legend from favorites',
+
+  integration_types: [0, 1],
+  contexts: [0, 1, 2],
+};
+
 const ALL_COMMANDS = [
+  HELP_COMMAND,
   RANDOM_COMMAND,
   RANDOM_WEAP_COMMAND,
   FAVORITES_COMMAND,
   ADD_FAV_COMMAND,
   RM_FAV_COMMAND,
+  RANDOM_FAV_COMMAND,
+  
 ];
 
 // @ts-ignore

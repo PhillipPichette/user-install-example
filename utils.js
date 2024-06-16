@@ -1,6 +1,6 @@
 import 'dotenv/config';
 import { verifyKey } from 'discord-interactions';
-import { getProfileByName, getUsername } from './game.js';
+import { getLegends, getProfileByName, getUsername } from './game.js';
 
 export function VerifyDiscordRequest(clientKey) {
   return function (req, res, buf) {
@@ -125,4 +125,38 @@ export function createErrorEmbed(error){
     },
   }
   return val
+}
+
+export function createHelpEmbed(){
+  return {
+    type: 'rich',
+    title: 'Commands',
+    color: 0x968b9f,
+    fields:[
+      {
+        name: '**/random**',
+        value: `Randomly generate one of all ${getLegends().length} legends`
+      },
+      {
+        name: '**/favorites**',
+        value: `View your favorites`
+      },
+      {
+        name: '**/addfavorite [legend]**',
+        value: `Add a legend to your list of favorites`
+      },
+      {
+        name: '**/removefavorite [legend]**',
+        value: `Remove a legend from your list of favorites`
+      },
+      {
+        name: '**/randomfav**',
+        value: `Randomly generate a legend from your list of favorites`
+      },
+      {
+        name: '**/randomweap [weapon]**',
+        value: `Randomly generate a legend with the specified weapon`
+      },
+    ]
+  }
 }

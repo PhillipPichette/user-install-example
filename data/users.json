@@ -21,6 +21,31 @@
         "name": "Jiro",
         "value": "Sword, Scythe",
         "inline": false
+      },
+      {
+        "name": "Mordex",
+        "value": "Gauntlets, Scythe",
+        "inline": false
+      },
+      {
+        "name": "Teros",
+        "value": "Axe, Hammer",
+        "inline": false
+      },
+      {
+        "name": "Val",
+        "value": "Gauntlets, Sword",
+        "inline": false
+      },
+      {
+        "name": "Cross",
+        "value": "Blasters, Gauntlets",
+        "inline": false
+      },
+      {
+        "name": "Ezio",
+        "value": "Sword, Orb",
+        "inline": false
       }
     ]
   },
@@ -43,13 +68,8 @@
         "inline": false
       },
       {
-        "name": "Red Raptor",
-        "value": "Battle Boots, Orb",
-        "inline": false
-      },
-      {
-        "name": "Kaya",
-        "value": "Spear, Bow",
+        "name": "Jaeyun",
+        "value": "Greatsword, Sword",
         "inline": false
       }
     ]

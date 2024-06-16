@@ -6,6 +6,7 @@ import {
   createPlayerEmbed,
   createGeneratedLegend,
   createErrorEmbed,
+  createHelpEmbed,
 } from './utils.js';
 import { AddFavorite, AddProfile, RemoveFavorite, getProfileByName, getRandom } from './game.js';
 import { ReadFromFile, WritetoFile } from './jsonIO.js';
@@ -42,6 +43,19 @@ app.post('/interactions', async function (req, res) {
     
     const { name } = data;
     
+    if (name === 'help') {
+      const msgEmbed = createHelpEmbed()
+
+      let profilePayloadData = {
+        embeds: [msgEmbed],
+      };
+
+      return res.send({
+        type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
+        data: profilePayloadData,
+      });
+    }
+
     // "favorites" command
     if (name === 'favorites') {
       // Use interaction context that the interaction was triggered from
@@ -89,13 +103,31 @@ app.post('/interactions', async function (req, res) {
         type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
         data: profilePayloadData,
       });
+    }
 
-      // return res.send({
-      //   type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
-      //   data: {
-      //     content: `# **${selectedItem.name}** \n Weapons: **${selectedItem.weapons[0]}, ${selectedItem.weapons[1]}**`,
-      //   },
-      // });
+    if(name === 'randomfav'){
+
+      const interactionContext = req.body.context;
+      var user
+      if(interactionContext !== 1) {
+        user = req.body.member.user
+      }else{
+        user = req.body.user
+      }
+      var selectedItem = getRandom('favorite', user.global_name);
+
+      // Send a message into the channel where command was triggered from
+      const msgEmbed = selectedItem == 'error' ? createErrorEmbed({title: 'No favorites', message: 'you have no favorited legends'}) : createGeneratedLegend(selectedItem)
+
+      let profilePayloadData = {
+        embeds: [msgEmbed],
+      };
+
+      return res.send({
+        type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
+        data: profilePayloadData,
+      });
+
     }
 
     if (name === 'random') {
@@ -161,8 +193,6 @@ app.post('/interactions', async function (req, res) {
         data: profilePayloadData,
       });
     }
-  
-
   }
 
   // handle button interaction

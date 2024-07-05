@@ -81,6 +81,11 @@
         "name": "Azoth",
         "value": "Bow, Axe",
         "inline": false
+      },
+      {
+        "name": "Queen Nai",
+        "value": "Spear, Katars",
+        "inline": false
       }
     ]
   },

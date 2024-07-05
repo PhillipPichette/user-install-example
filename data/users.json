@@ -71,6 +71,16 @@
         "name": "Jaeyun",
         "value": "Greatsword, Sword",
         "inline": false
+      },
+      {
+        "name": "Koji",
+        "value": "Bow, Sword",
+        "inline": false
+      },
+      {
+        "name": "Azoth",
+        "value": "Bow, Axe",
+        "inline": false
       }
     ]
   },
